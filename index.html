@@ -33,20 +33,21 @@
 
   <h1>Snackliste Hochzeit Sailes</h1>
 
-  <form id="salatForm">
+  <form id="snackForm">
     <input
       type="text"
       name="name"
       placeholder="Dein Name"
       required
     >
-
-    <input
-      type="number"
+    <select 
       name="kategorie"
       placeholder="Kategorie Salat/Happen"
       required
-    >
+      >
+  <option>Salat</option>
+  <option>Happen</option>
+</select>
 
     <input
       type="text"
@@ -63,7 +64,7 @@
   <div id="status"></div>
 
   <script>
-    const form = document.getElementById("salatForm");
+    const form = document.getElementById("snackForm");
     const status = document.getElementById("status");
 
     const scriptURL = "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
