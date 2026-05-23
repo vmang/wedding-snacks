@@ -1,135 +1,275 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Hochzeit Sailes</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 500px;
-      margin: 40px auto;
-      padding: 20px;
-    }
-
-    input, select, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      box-sizing: border-box;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    #status {
-      margin-top: 20px;
-    }
-  </style>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
 
-  <h1>Snackliste Hochzeit Sailes</h1>
+<body class="bg-gradient-to-br from-emerald-50 to-teal-100 min-h-screen">
 
-  <form id="snackForm">
-    <input
-      type="text"
-      name="name"
-      placeholder="Dein Name"
-      required
+  <!-- Container -->
+  <div class="max-w-xl mx-auto px-4 py-12">
+
+    <!-- Login Box -->
+    <div
+      id="loginBox"
+      class="bg-white rounded-3xl shadow-2xl p-8"
     >
-    <select 
-      name="kategorie"
-      placeholder="Kategorie Salat/Happen"
-      required
+
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">
+          Hochzeit Sailes 2026
+        </h1>
+
+        <p class="text-gray-500 mt-2">
+          Bitte Passwort eingeben
+        </p>
+      </div>
+
+      <input
+        type="password"
+        id="passwordInput"
+        placeholder="Passwort"
+        class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+      />
+
+      <button
+        onclick="checkPassword()"
+        class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold p-4 rounded-xl transition"
       >
-  <option>Salat</option>
-  <option>Happen</option>
-</select>
+        Öffnen
+      </button>
 
-    <input
-      type="text"
-      name="snack"
-      placeholder="Welchen Happen/Salat bringst du mit?"
-      required
+      <p
+        id="loginError"
+        class="text-red-500 text-center mt-4"
+      ></p>
+    </div>
+
+    <!-- App -->
+    <div
+      id="app"
+      class="hidden bg-white rounded-3xl shadow-2xl p-8"
     >
 
-    <button type="submit">
-      Absenden
-    </button>
-  </form>
+      <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800">
+          Snackliste Hochzeit Sailes
+        </h1>
 
-  <div id="status"></div>
+        <p class="text-gray-500 mt-2">
+          Trage ein, welchen Salat/Happen du mitbringst 🙂
+        </p>
+      </div>
+
+      <form
+        id="snackForm"
+        class="space-y-5"
+      >
+
+        <!-- Name -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Dein Name
+          </label>
+
+          <input
+            type="text"
+            name="name"
+            required
+            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            placeholder="Max Mustermann"
+          />
+        </div>
+
+        <!-- Kategorie -->
+        <div>
+     
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Bringst du einen Salat oder einen Happen mit ?
+          </label>
+
+          <select
+            name="kategorie"
+            required
+            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+          >
+            <option value="">Bitte auswählen</option>
+            <option>Salat</option>
+            <option>Happen</option>
+          </select>
+        </div>
+
+        <!-- Snack -->
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-700">
+            Welchen Snack/Salat/Happen bringst du mit?
+          </label>
+
+          <input
+            type="text"
+            name="snack"
+            required
+            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+            placeholder="Welchen Happen/Salat bringst du mit ?"
+          />
+        </div>
+
+        <!-- Button -->
+        <button
+          type="submit"
+          class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold p-4 rounded-xl transition"
+        >
+          Absenden
+        </button>
+
+      </form>
+
+      <!-- Status -->
+      <div
+        id="status"
+        class="text-center mt-6 text-lg"
+      ></div>
+
+    </div>
+  </div>
 
   <script>
-    const form = document.getElementById("snackForm");
-    const status = document.getElementById("status");
 
-    const scriptURL = "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
+    // =========================
+    // Einstellungen
+    // =========================
+
+    const PAGE_PASSWORD = "hochzeit2026";
+
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
+
+    const SECRET_KEY =
+      "sailesecret2026";
+
+
+    // =========================
+    // Passwort prüfen
+    // =========================
+
+    function checkPassword() {
+
+      const input =
+        document.getElementById("passwordInput").value;
+
+      if (input === PAGE_PASSWORD) {
+
+        document
+          .getElementById("loginBox")
+          .classList.add("hidden");
+
+        document
+          .getElementById("app")
+          .classList.remove("hidden");
+
+        sessionStorage.setItem("loggedIn", "true");
+
+      } else {
+
+        document
+          .getElementById("loginError")
+          .innerText = "Falsches Passwort";
+
+      }
+    }
+
+
+    // Bereits eingeloggt?
+    if (sessionStorage.getItem("loggedIn") === "true") {
+
+      window.addEventListener("load", () => {
+
+        document
+          .getElementById("loginBox")
+          .classList.add("hidden");
+
+        document
+          .getElementById("app")
+          .classList.remove("hidden");
+
+      });
+    }
+
+
+    // =========================
+    // Formular absenden
+    // =========================
+
+    const form =
+      document.getElementById("snackForm");
+
+    const status =
+      document.getElementById("status");
+
 
     form.addEventListener("submit", async (e) => {
+
       e.preventDefault();
 
       const formData = new FormData(form);
 
       const data = {
-        secret: "sailesecret2026",
-        name: formData.get("name"),
+
+        secret: SECRET_KEY,
+
+        name:
+          formData.get("name"),
+
         kategorie: formData.get("kategorie"),
         snack: formData.get("snack")
+
       };
 
+
+      status.innerText = "Speichert...";
+
+
       try {
+
         const response = await fetch(scriptURL, {
+
           method: "POST",
+
           body: JSON.stringify(data)
+
         });
 
+
         if (response.ok) {
-          status.innerText = "Danke! Eingetragen 🙂";
+
+          status.innerText =
+            "Danke 🙂 Eingetragen!";
+
           form.reset();
+
         } else {
-          status.innerText = "Fehler beim Speichern.";
+
+          status.innerText =
+            "Fehler beim Speichern.";
+
         }
 
       } catch (error) {
-        status.innerText = "Netzwerkfehler.";
+
+        status.innerText =
+          "Netzwerkfehler.";
+
       }
+
     });
+
   </script>
 
-  <script>
-
-  const PAGE_PASSWORD = "hochzeit2026";
-
-  function checkPassword() {
-    const input = document.getElementById("passwordInput").value;
-
-    if (input === PAGE_PASSWORD) {
-
-      document.getElementById("loginBox").classList.add("hidden");
-      document.getElementById("app").classList.remove("hidden");
-
-      sessionStorage.setItem("loggedIn", "true");
-
-    } else {
-      document.getElementById("loginError").innerText =
-        "Falsches Passwort";
-    }
-  }
-
-  if (sessionStorage.getItem("loggedIn") === "true") {
-    window.addEventListener("load", () => {
-      document.getElementById("loginBox").classList.add("hidden");
-      document.getElementById("app").classList.remove("hidden");
-    });
-  }
-
-</script>
-  
 </body>
 </html>
-
-
