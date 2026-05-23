@@ -136,6 +136,23 @@
         class="text-center mt-6 text-lg"
       ></div>
 
+      <!-- Bereits eingetragene Salate -->
+
+      <div class="mt-10">
+
+      <h2 class="text-2xl font-bold text-gray-800 mb-4">
+        Bereits eingetragen
+      </h2>
+    
+      <div
+        id="snackiste"
+        class="space-y-3"
+      >
+        <!-- Dynamisch eingefügt -->
+      </div>
+
+</div>
+
     </div>
   </div>
 
@@ -174,6 +191,7 @@
           .classList.remove("hidden");
 
         sessionStorage.setItem("loggedIn", "true");
+        loadEntries();
 
       } else {
 
@@ -252,6 +270,7 @@
             "Danke 🙂 Eingetragen!";
 
           form.reset();
+          loadEntries();
 
         } else {
 
@@ -268,6 +287,77 @@
       }
 
     });
+
+      // =========================
+      // Vorhandene Einträge laden
+      // =========================
+      
+      async function loadEntries() {
+      
+        const liste =
+          document.getElementById("snackListe");
+      
+        liste.innerHTML =
+          "<p class='text-gray-500'>Lade...</p>";
+      
+        try {
+      
+          const response =
+            await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
+      
+          const data =
+            await response.json();
+      
+          // Neueste zuerst
+          data.reverse();
+      
+          if (data.length === 0) {
+      
+            liste.innerHTML =
+              "<p>Noch keine Einträge vorhanden.</p>";
+      
+            return;
+          }
+      
+          liste.innerHTML = "";
+      
+          data.forEach(entry => {
+      
+            const div =
+              document.createElement("div");
+      
+            div.className =
+              "bg-gray-50 border border-gray-200 rounded-xl p-4";
+      
+            div.innerHTML = `
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="font-semibold text-gray-800">
+                    ${entry.name}
+                  </p>
+      
+                  <p class="text-gray-600">
+                    ${entry.kategorie}
+                  </p>
+                </div>
+      
+                <div class="text-sm text-gray-500">
+                  ${entry.snack} 
+                </div>
+              </div>
+            `;
+      
+            liste.appendChild(div);
+      
+          });
+      
+        } catch (error) {
+      
+          liste.innerHTML =
+            "<p class='text-red-500'>Fehler beim Laden.</p>";
+      
+        }
+      }
 
   </script>
 
