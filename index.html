@@ -179,22 +179,30 @@
                   </label>
 
                   <select name="kategorie" required class="w-full
-       bg-white/5
-       border border-white/10
-       rounded-2xl
-       px-5 py-4
-       text-wedding-cream
-       placeholder:text-wedding-light/40
-       font-light
-       tracking-wide
-       backdrop-blur-sm
-       focus:outline-none
-       focus:border-wedding-gold
-       focus:bg-white/10
-       transition duration-300">
-                    <option value="">Bitte auswählen</option>
-                    <option>Salat(Buffet)</option>
-                    <option>Happen(Sektempfang)</option>
+         appearance-none
+         bg-[#6b564c]/80
+         border border-white/10
+         rounded-2xl
+         px-5 py-4
+         text-wedding-cream
+         font-light
+         tracking-wide
+         backdrop-blur-sm
+         focus:outline-none
+         focus:border-wedding-gold
+         focus:bg-[#746055]
+         transition duration-300">
+                    <option value="" class="bg-[#5a463d] text-wedding-cream">
+                      Bitte auswählen
+                    </option>
+
+                    <option class="bg-[#5a463d] text-wedding-cream">
+                      Salat (Buffet)
+                    </option>
+
+                    <option class="bg-[#5a463d] text-wedding-cream">
+                      Happen (Sektempfang)
+                    </option>
                   </select>
                 </div>
 
@@ -260,207 +268,208 @@
 
                 </div>
               </div>
-              <!-- Bereits eingetragene Salate -->
+            </div>
+            <!-- Bereits eingetragene Salate -->
 
-              <div class="p-10">
+            <div class="p-10">
 
-                <h2 class=class="font-heading
+              <h2 class=class="font-heading
            text-5xl
            font-light
            tracking-wide
            text-wedding-cream
            mb-8">
-                  Bereits eingetragene Salate/Happen
-                </h2>
+                Bereits eingetragene Salate/Happen
+              </h2>
 
-                <div id="snackListe" class="space-y-3">
-                  <!-- Dynamisch eingefügt -->
-                </div>
-
+              <div id="snackListe" class="space-y-3">
+                <!-- Dynamisch eingefügt -->
               </div>
 
             </div>
+
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
+  <script>
 
-      // =========================
-      // Einstellungen
-      // =========================
+    // =========================
+    // Einstellungen
+    // =========================
 
-      const PAGE_PASSWORD = "hochzeit2026";
+    const PAGE_PASSWORD = "hochzeit2026";
 
-      const scriptURL =
-        "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
 
-      const SECRET_KEY =
-        "sailesecret2026";
+    const SECRET_KEY =
+      "sailesecret2026";
 
 
-      // =========================
-      // Passwort prüfen
-      // =========================
+    // =========================
+    // Passwort prüfen
+    // =========================
 
-      function checkPassword() {
+    function checkPassword() {
 
-        const input =
-          document.getElementById("passwordInput").value;
+      const input =
+        document.getElementById("passwordInput").value;
 
-        if (input === PAGE_PASSWORD) {
+      if (input === PAGE_PASSWORD) {
 
-          document
-            .getElementById("loginBox")
-            .classList.add("hidden");
+        document
+          .getElementById("loginBox")
+          .classList.add("hidden");
 
-          document
-            .getElementById("app")
-            .classList.remove("hidden");
+        document
+          .getElementById("app")
+          .classList.remove("hidden");
 
-          sessionStorage.setItem("loggedIn", "true");
+        sessionStorage.setItem("loggedIn", "true");
+        loadEntries();
+
+      } else {
+
+        document
+          .getElementById("loginError")
+          .innerText = "Falsches Passwort";
+
+      }
+    }
+
+
+    // Bereits eingeloggt?
+    if (sessionStorage.getItem("loggedIn") === "true") {
+
+      window.addEventListener("load", () => {
+
+        document
+          .getElementById("loginBox")
+          .classList.add("hidden");
+
+        document
+          .getElementById("app")
+          .classList.remove("hidden");
+
+        loadEntries();
+
+      });
+    }
+
+
+    // =========================
+    // Formular absenden
+    // =========================
+
+    const form =
+      document.getElementById("snackForm");
+
+    const status =
+      document.getElementById("status");
+
+
+    form.addEventListener("submit", async (e) => {
+
+      e.preventDefault();
+
+      const formData = new FormData(form);
+
+      const data = {
+
+        secret: SECRET_KEY,
+
+        name:
+          formData.get("name"),
+
+        kategorie: formData.get("kategorie"),
+        snack: formData.get("snack")
+
+      };
+
+
+      status.innerText = "Speichert...";
+
+
+      try {
+
+        const response = await fetch(scriptURL, {
+
+          method: "POST",
+
+          body: JSON.stringify(data)
+
+        });
+
+
+        if (response.ok) {
+
+          status.innerText =
+            "Danke 🙂 Eingetragen!";
+
+          form.reset();
           loadEntries();
 
         } else {
 
-          document
-            .getElementById("loginError")
-            .innerText = "Falsches Passwort";
-
-        }
-      }
-
-
-      // Bereits eingeloggt?
-      if (sessionStorage.getItem("loggedIn") === "true") {
-
-        window.addEventListener("load", () => {
-
-          document
-            .getElementById("loginBox")
-            .classList.add("hidden");
-
-          document
-            .getElementById("app")
-            .classList.remove("hidden");
-
-          loadEntries();
-
-        });
-      }
-
-
-      // =========================
-      // Formular absenden
-      // =========================
-
-      const form =
-        document.getElementById("snackForm");
-
-      const status =
-        document.getElementById("status");
-
-
-      form.addEventListener("submit", async (e) => {
-
-        e.preventDefault();
-
-        const formData = new FormData(form);
-
-        const data = {
-
-          secret: SECRET_KEY,
-
-          name:
-            formData.get("name"),
-
-          kategorie: formData.get("kategorie"),
-          snack: formData.get("snack")
-
-        };
-
-
-        status.innerText = "Speichert...";
-
-
-        try {
-
-          const response = await fetch(scriptURL, {
-
-            method: "POST",
-
-            body: JSON.stringify(data)
-
-          });
-
-
-          if (response.ok) {
-
-            status.innerText =
-              "Danke 🙂 Eingetragen!";
-
-            form.reset();
-            loadEntries();
-
-          } else {
-
-            status.innerText =
-              "Fehler beim Speichern.";
-
-          }
-
-        } catch (error) {
-
           status.innerText =
-            "Netzwerkfehler.";
+            "Fehler beim Speichern.";
 
         }
 
-      });
+      } catch (error) {
 
-      // =========================
-      // Vorhandene Einträge laden
-      // =========================
+        status.innerText =
+          "Netzwerkfehler.";
 
-      async function loadEntries() {
+      }
 
-        const liste =
-          document.getElementById("snackListe");
+    });
 
-        liste.innerHTML =
-          "<p class='text-gray-500'>Lade...</p>";
+    // =========================
+    // Vorhandene Einträge laden
+    // =========================
 
-        try {
+    async function loadEntries() {
 
-          const response =
-            await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
+      const liste =
+        document.getElementById("snackListe");
 
-          const data =
-            await response.json();
+      liste.innerHTML =
+        "<p class='text-gray-500'>Lade...</p>";
 
-          // Neueste zuerst
-          data.reverse();
+      try {
 
-          if (data.length === 0) {
+        const response =
+          await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
 
-            liste.innerHTML =
-              "<p>Noch keine Einträge vorhanden.</p>";
+        const data =
+          await response.json();
 
-            return;
-          }
+        // Neueste zuerst
+        data.reverse();
 
-          liste.innerHTML = "";
+        if (data.length === 0) {
 
-          data.forEach(entry => {
+          liste.innerHTML =
+            "<p>Noch keine Einträge vorhanden.</p>";
 
-            const div =
-              document.createElement("div");
+          return;
+        }
 
-            div.className =
-              "group rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-5 transition duration-300 hover:bg-white/[0.06]";
+        liste.innerHTML = "";
 
-            div.innerHTML = `
+        data.forEach(entry => {
+
+          const div =
+            document.createElement("div");
+
+          div.className =
+            "group rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-5 transition duration-300 hover:bg-white/[0.06]";
+
+          div.innerHTML = `
   <div class="flex items-center justify-between gap-6">
 
     <div class="min-w-0">
@@ -501,19 +510,19 @@
   </div>
 `;
 
-            liste.appendChild(div);
+          liste.appendChild(div);
 
-          });
+        });
 
-        } catch (error) {
+      } catch (error) {
 
-          liste.innerHTML =
-            "<p class='text-red-500'>Fehler beim Laden.</p>";
+        liste.innerHTML =
+          "<p class='text-red-500'>Fehler beim Laden.</p>";
 
-        }
       }
+    }
 
-    </script>
+  </script>
 
 </body>
 
