@@ -76,13 +76,36 @@
             </p>
           </div>
 
-          <input type="password" id="passwordInput" placeholder="Passwort"
-            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
+          <form id="loginForm" class="space-y-4">
 
-          <button onclick="checkPassword()"
-            class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold p-4 rounded-xl transition">
-            Öffnen
-          </button>
+            <input type="password" id="passwordInput" placeholder="Passwort" class="w-full
+           bg-white/5
+           border border-white/10
+           rounded-2xl
+           px-5 py-4
+           text-wedding-cream
+           placeholder:text-wedding-light/40
+           font-light
+           tracking-wide
+           backdrop-blur-sm
+           focus:outline-none
+           focus:border-wedding-gold
+           focus:bg-white/10
+           transition duration-300" />
+
+            <button type="submit" class="w-full
+           rounded-2xl
+           bg-[#b99272]
+           hover:bg-[#c8a58b]
+           text-[#3d2f29]
+           font-light
+           tracking-wide
+           py-4
+           transition duration-300">
+              Öffnen
+            </button>
+
+          </form>
 
           <p id="loginError" class="text-red-500 text-center mt-4"></p>
         </div>
