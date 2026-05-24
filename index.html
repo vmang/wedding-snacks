@@ -6,13 +6,52 @@
 
   <title>Hochzeit Sailes</title>
   <link rel="icon" type="image/x-icon" href="./favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&family=Great+Vibes&display=swap" rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+  
+          colors: {
+  
+            wedding: {
+              dark: '#4b3a32',
+              paper: '#6d574c',
+              light: '#d7c1b3',
+              cream: '#f4ede7',
+              gold: '#c8a58b'
+            }
+  
+          },
+  
+          fontFamily: {
+  
+            heading: ['Cormorant Garamond', 'serif'],
+            body: ['Montserrat', 'sans-serif'],
+            signature: ['Great Vibes', 'cursive']
+  
+          }
+  
+        }
+      }
+    }
+  </script>
 </head>
 
-<body class="min-h-screen bg-cover bg-center bg-no-repeat"
+<body class="min-h-screen bg-cover bg-center bg-fixed font-body text-wedding-cream"
   style="background-image: url('background_saile.jpg');">
 
+    <!-- Dunkles Overlay -->
+  <div class="min-h-screen bg-black/45 backdrop-blur-[2px]">
+
+    <!-- Content -->
+    <div class="max-w-6xl mx-auto px-6 py-16">
   <!-- Container -->
   <div class="max-w-xl mx-auto px-4 py-12">
 
@@ -55,19 +94,23 @@
     <!-- App -->
     <div
       id="app"
-      class="hidden bg-white rounded-3xl shadow-2xl p-8"
+       class="hidden grid lg:grid-cols-2 overflow-hidden rounded-[32px]
+         border border-white/10
+         bg-[#5a463d]/70
+         backdrop-blur-xl
+         shadow-2xl"
     >
 
       <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800">
+        <h1 class="font-heading text-6xl font-light tracking-wide">
           Snackliste Hochzeit Sailes
         </h1>
 
-        <p class="text-gray-500 mt-2">
+        <p class="mt-4 text-wedding-light tracking-[0.25em] uppercase text-sm">
           Trage ein, welchen Salat(Buffet) oder welches Häppchen(Sektempfang) du mitbringst 🙂
         </p>
       </div>
-
+<div class="p-10 border-r border-white/10">
       <form
         id="snackForm"
         class="space-y-5"
@@ -124,7 +167,15 @@
         <!-- Button -->
         <button
           type="submit"
-          class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold p-4 rounded-xl transition"
+          class="w-full
+                 rounded-2xl
+                 bg-[#b99272]
+                 hover:bg-[#c8a58b]
+                 text-[#3d2f29]
+                 font-light
+                 tracking-wide
+                 py-4
+                 transition duration-300"
         >
           Absenden
         </button>
@@ -136,10 +187,22 @@
         id="status"
         class="text-center mt-6 text-lg"
       ></div>
+  <div class="mt-10">
 
+  <p class="text-wedding-light text-sm">
+    Vielen Dank, dass ihr diesen besonderen Tag
+    mit uns feiert!
+  </p>
+
+  <p class="font-signature text-5xl mt-4 text-wedding-light">
+    Larissa & Markus
+  </p>
+
+</div>
+</div>
       <!-- Bereits eingetragene Salate -->
 
-      <div class="mt-10">
+      <div class="p-10">
 
       <h2 class="text-2xl font-bold text-gray-800 mb-4">
         Bereits eingetragen
@@ -155,6 +218,8 @@
 </div>
 
     </div>
+  </div>
+      </div>
   </div>
 
   <script>
