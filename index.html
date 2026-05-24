@@ -47,10 +47,29 @@
   </script>
 
   <style>
-  * {
-    box-sizing: border-box;
-  }
-</style>
+    * {
+      box-sizing: border-box;
+    }
+  </style>
+
+  <style>
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+  </style>
 </head>
 
 <body class="min-h-screen overflow-x-hidden bg-cover bg-center bg-fixed font-body text-wedding-cream"
@@ -236,7 +255,7 @@
        focus:outline-none
        focus:border-wedding-gold
        focus:bg-white/10
-       transition duration-300" placeholder="z.B. Kartoffelsalat" />
+       transition duration-300" placeholder="z.B. Gurkensalat" />
                 </div>
 
                 <!-- Button -->
@@ -298,8 +317,87 @@
                 Bereits eingetragene Salate/Happen
               </h2>
 
-              <div id="snackListe" class="space-y-3">
-                <!-- Dynamisch eingefügt -->
+              <div class="space-y-6">
+
+                <!-- Salate -->
+                <div class="rounded-3xl
+           border border-white/10
+           bg-white/[0.03]
+           overflow-hidden">
+
+                  <button type="button" onclick="toggleSection('salateContent', 'salateIcon')" class="w-full
+             flex items-center justify-between
+             px-6 py-5
+             text-left
+             hover:bg-white/[0.03]
+             transition">
+
+                    <div>
+
+                      <h3 class="font-heading text-3xl font-light">
+                        Salate
+                      </h3>
+
+                      <p class="text-xs uppercase tracking-[0.2em] text-wedding-light/60 mt-1">
+                        Buffet
+                      </p>
+
+                    </div>
+
+                    <span id="salateIcon" class="text-2xl text-wedding-light transition">
+                      −
+                    </span>
+
+                  </button>
+
+                  <div id="salateContent" class="max-h-[400px]
+             overflow-y-auto
+             px-6 pb-6
+             space-y-4">
+                  </div>
+
+                </div>
+
+
+                <!-- Happen -->
+                <div class="rounded-3xl
+           border border-white/10
+           bg-white/[0.03]
+           overflow-hidden">
+
+                  <button type="button" onclick="toggleSection('happenContent', 'happenIcon')" class="w-full
+             flex items-center justify-between
+             px-6 py-5
+             text-left
+             hover:bg-white/[0.03]
+             transition">
+
+                    <div>
+
+                      <h3 class="font-heading text-3xl font-light">
+                        Happen
+                      </h3>
+
+                      <p class="text-xs uppercase tracking-[0.2em] text-wedding-light/60 mt-1">
+                        Sektempfang
+                      </p>
+
+                    </div>
+
+                    <span id="happenIcon" class="text-2xl text-wedding-light transition">
+                      −
+                    </span>
+
+                  </button>
+
+                  <div id="happenContent" class="max-h-[400px]
+             overflow-y-auto
+             px-6 pb-6
+             space-y-4">
+                  </div>
+
+                </div>
+
               </div>
 
             </div>
@@ -455,14 +553,40 @@
 
     });
 
+    function toggleSection(contentId, iconId) {
+
+      const content =
+        document.getElementById(contentId);
+
+      const icon =
+        document.getElementById(iconId);
+
+      if (content.classList.contains("hidden")) {
+
+        content.classList.remove("hidden");
+
+        icon.innerText = "−";
+
+      } else {
+
+        content.classList.add("hidden");
+
+        icon.innerText = "+";
+
+      }
+    }
+
     // =========================
     // Vorhandene Einträge laden
     // =========================
 
     async function loadEntries() {
 
-      const liste =
-        document.getElementById("snackListe");
+      const salateListe =
+        document.getElementById("salateContent");
+
+      const happenListe =
+        document.getElementById("happenContent");
 
       liste.innerHTML =
         "<p class='text-gray-500'>Lade...</p>";
@@ -478,15 +602,8 @@
         // Neueste zuerst
         data.reverse();
 
-        if (data.length === 0) {
-
-          liste.innerHTML =
-            "<p>Noch keine Einträge vorhanden.</p>";
-
-          return;
-        }
-
-        liste.innerHTML = "";
+        salateListe.innerHTML = "";
+        happenListe.innerHTML = "";
 
         data.forEach(entry => {
 
@@ -497,62 +614,90 @@
             "group rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-5 transition duration-300 hover:bg-white/[0.06]";
 
           div.innerHTML = `
-    <div class="
-      flex
-      flex-col
-      sm:flex-row
-      sm:items-center
-      sm:justify-between
-      gap-4
-  ">
+            <div class="
+              flex
+              flex-col
+              sm:flex-row
+              sm:items-center
+              sm:justify-between
+              gap-4
+          ">
 
-    <div class="min-w-0">
+            <div class="min-w-0">
 
-      <p class="
-          font-heading
-          text-3xl
-          font-light
-          tracking-wide
-          text-wedding-cream
-        ">
-        ${entry.name}
-      </p>
+              <p class="
+                  font-heading
+                  text-3xl
+                  font-light
+                  tracking-wide
+                  text-wedding-cream
+                ">
+                ${entry.name}
+              </p>
 
-      <p class="
-          mt-1
-          text-sm
-          uppercase
-          tracking-[0.2em]
-          text-wedding-light/70
-        ">
-        ${entry.kategorie}
-      </p>
+              <p class="
+                  mt-1
+                  text-sm
+                  uppercase
+                  tracking-[0.2em]
+                  text-wedding-light/70
+                ">
+                ${entry.kategorie}
+              </p>
 
-    </div>
+            </div>
 
-    <div class="
-    text-left sm:text-right
-    text-wedding-light
-    font-light
-    tracking-wide
-    break-words
-    max-w-full
-    ">
+            <div class="
+            text-left sm:text-right
+            text-wedding-light
+            font-light
+            tracking-wide
+            break-words
+            max-w-full
+            ">
 
-      ${entry.snack}
+              ${entry.snack}
 
-    </div>
+            </div>
 
-  </div>
-`;
+          </div>
+        `;
 
-          liste.appendChild(div);
+          if (
+            entry.kategorie.includes("Salat")
+          ) {
+
+            salateListe.appendChild(div);
+
+          } else {
+
+            happenListe.appendChild(div);
+
+          }
 
         });
 
+        if (!salateListe.innerHTML.trim()) {
+
+          salateListe.innerHTML = `
+            <p class="text-wedding-light/60 italic">
+              Noch keine Salate eingetragen
+            </p>
+          `;
+        }
+
+        if (!happenListe.innerHTML.trim()) {
+
+          happenListe.innerHTML = `
+            <p class="text-wedding-light/60 italic">
+              Noch keine Happen eingetragen
+            </p>
+          `;
+        }
+
       } catch (error) {
 
-        liste.innerHTML =
+        salateListe.innerHTML =
           "<p class='text-red-500'>Fehler beim Laden.</p>";
 
       }
