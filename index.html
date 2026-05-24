@@ -59,14 +59,19 @@
       <div class="w-full py-12">
 
         <!-- Login Box -->
-        <div id="loginBox" class="bg-white rounded-3xl shadow-2xl p-8">
+        <div id="loginBox" class="bg-[#5a463d]/70
+       backdrop-blur-xl
+       border border-white/10
+       rounded-[32px]
+       shadow-2xl
+       p-10">
 
           <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-800">
+            <h1 class="text-4xl font-bold text-wedding-cream">
               Hochzeit Sailes 2026
             </h1>
 
-            <p class="text-gray-500 mt-2">
+            <p class="text-wedding-light mt-2">
               Bitte Passwort eingeben
             </p>
           </div>
@@ -106,7 +111,9 @@
            bg-[#5a463d]/70
            backdrop-blur-xl
            shadow-2xl">
-            <div class="p-10 border-r border-white/10">
+            <div class="p-12
+         border-r border-white/10
+         bg-black/5">
               <form id="snackForm" class="space-y-5">
 
                 <!-- Name -->
@@ -211,246 +218,279 @@
               </form>
 
               <!-- Status -->
-              <div id="status" class="text-center mt-6 text-lg"></div>
-              <div class="mt-10">
+              <div id="status" class="text-center
+         mt-8
+         text-sm
+         tracking-[0.2em]
+         uppercase
+         text-wedding-light/70">
+                <div class="mt-10">
 
-                <p class="text-wedding-light text-sm">
-                  Vielen Dank, dass ihr diesen besonderen Tag
-                  mit uns feiert!
-                </p>
+                  <p class="text-wedding-light text-sm">
+                    Vielen Dank, dass ihr diesen besonderen Tag
+                    mit uns feiert!
+                  </p>
 
-                <p class="font-signature text-5xl mt-4 text-wedding-light">
-                  Larissa & Markus
-                </p>
+                  <p class="font-signature text-5xl mt-4 text-wedding-light">
+                    Larissa & Markus
+                  </p>
+
+                </div>
+              </div>
+              <!-- Bereits eingetragene Salate -->
+
+              <div class="p-10">
+
+                <h2 class=class="font-heading
+           text-5xl
+           font-light
+           tracking-wide
+           text-wedding-cream
+           mb-8">
+                  Bereits eingetragene Salate/Happen
+                </h2>
+
+                <div id="snackListe" class="space-y-3">
+                  <!-- Dynamisch eingefügt -->
+                </div>
 
               </div>
-            </div>
-            <!-- Bereits eingetragene Salate -->
-
-            <div class="p-10">
-
-              <h2 class="text-2xl font-bold text-gray-800 mb-4">
-                Bereits eingetragen
-              </h2>
-
-              <div id="snackListe" class="space-y-3">
-                <!-- Dynamisch eingefügt -->
-              </div>
 
             </div>
-
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
+    <script>
 
-    // =========================
-    // Einstellungen
-    // =========================
+      // =========================
+      // Einstellungen
+      // =========================
 
-    const PAGE_PASSWORD = "hochzeit2026";
+      const PAGE_PASSWORD = "hochzeit2026";
 
-    const scriptURL =
-      "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbz_V4lc4a5YaLcZegeDyBw2CsmnmdhVKoTvr2G7yhLqORcGdYVX-AiKKpt5yrShvqlIRA/exec";
 
-    const SECRET_KEY =
-      "sailesecret2026";
-
-
-    // =========================
-    // Passwort prüfen
-    // =========================
-
-    function checkPassword() {
-
-      const input =
-        document.getElementById("passwordInput").value;
-
-      if (input === PAGE_PASSWORD) {
-
-        document
-          .getElementById("loginBox")
-          .classList.add("hidden");
-
-        document
-          .getElementById("app")
-          .classList.remove("hidden");
-
-        sessionStorage.setItem("loggedIn", "true");
-        loadEntries();
-
-      } else {
-
-        document
-          .getElementById("loginError")
-          .innerText = "Falsches Passwort";
-
-      }
-    }
+      const SECRET_KEY =
+        "sailesecret2026";
 
 
-    // Bereits eingeloggt?
-    if (sessionStorage.getItem("loggedIn") === "true") {
+      // =========================
+      // Passwort prüfen
+      // =========================
 
-      window.addEventListener("load", () => {
+      function checkPassword() {
 
-        document
-          .getElementById("loginBox")
-          .classList.add("hidden");
+        const input =
+          document.getElementById("passwordInput").value;
 
-        document
-          .getElementById("app")
-          .classList.remove("hidden");
+        if (input === PAGE_PASSWORD) {
 
-        loadEntries();
+          document
+            .getElementById("loginBox")
+            .classList.add("hidden");
 
-      });
-    }
+          document
+            .getElementById("app")
+            .classList.remove("hidden");
 
-
-    // =========================
-    // Formular absenden
-    // =========================
-
-    const form =
-      document.getElementById("snackForm");
-
-    const status =
-      document.getElementById("status");
-
-
-    form.addEventListener("submit", async (e) => {
-
-      e.preventDefault();
-
-      const formData = new FormData(form);
-
-      const data = {
-
-        secret: SECRET_KEY,
-
-        name:
-          formData.get("name"),
-
-        kategorie: formData.get("kategorie"),
-        snack: formData.get("snack")
-
-      };
-
-
-      status.innerText = "Speichert...";
-
-
-      try {
-
-        const response = await fetch(scriptURL, {
-
-          method: "POST",
-
-          body: JSON.stringify(data)
-
-        });
-
-
-        if (response.ok) {
-
-          status.innerText =
-            "Danke 🙂 Eingetragen!";
-
-          form.reset();
+          sessionStorage.setItem("loggedIn", "true");
           loadEntries();
 
         } else {
 
-          status.innerText =
-            "Fehler beim Speichern.";
+          document
+            .getElementById("loginError")
+            .innerText = "Falsches Passwort";
 
         }
-
-      } catch (error) {
-
-        status.innerText =
-          "Netzwerkfehler.";
-
       }
 
-    });
 
-    // =========================
-    // Vorhandene Einträge laden
-    // =========================
+      // Bereits eingeloggt?
+      if (sessionStorage.getItem("loggedIn") === "true") {
 
-    async function loadEntries() {
+        window.addEventListener("load", () => {
 
-      const liste =
-        document.getElementById("snackListe");
+          document
+            .getElementById("loginBox")
+            .classList.add("hidden");
 
-      liste.innerHTML =
-        "<p class='text-gray-500'>Lade...</p>";
+          document
+            .getElementById("app")
+            .classList.remove("hidden");
 
-      try {
-
-        const response =
-          await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
-
-        const data =
-          await response.json();
-
-        // Neueste zuerst
-        data.reverse();
-
-        if (data.length === 0) {
-
-          liste.innerHTML =
-            "<p>Noch keine Einträge vorhanden.</p>";
-
-          return;
-        }
-
-        liste.innerHTML = "";
-
-        data.forEach(entry => {
-
-          const div =
-            document.createElement("div");
-
-          div.className =
-            "bg-gray-50 border border-gray-200 rounded-xl p-4";
-
-          div.innerHTML = `
-              <div class="flex justify-between items-center">
-                <div>
-                  <p class="font-semibold text-gray-800">
-                    ${entry.name}
-                  </p>
-      
-                  <p class="text-gray-600">
-                    ${entry.kategorie}
-                  </p>
-                </div>
-      
-                <div class="text-sm text-gray-500">
-                  ${entry.snack} 
-                </div>
-              </div>
-            `;
-
-          liste.appendChild(div);
+          loadEntries();
 
         });
+      }
 
-      } catch (error) {
+
+      // =========================
+      // Formular absenden
+      // =========================
+
+      const form =
+        document.getElementById("snackForm");
+
+      const status =
+        document.getElementById("status");
+
+
+      form.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const formData = new FormData(form);
+
+        const data = {
+
+          secret: SECRET_KEY,
+
+          name:
+            formData.get("name"),
+
+          kategorie: formData.get("kategorie"),
+          snack: formData.get("snack")
+
+        };
+
+
+        status.innerText = "Speichert...";
+
+
+        try {
+
+          const response = await fetch(scriptURL, {
+
+            method: "POST",
+
+            body: JSON.stringify(data)
+
+          });
+
+
+          if (response.ok) {
+
+            status.innerText =
+              "Danke 🙂 Eingetragen!";
+
+            form.reset();
+            loadEntries();
+
+          } else {
+
+            status.innerText =
+              "Fehler beim Speichern.";
+
+          }
+
+        } catch (error) {
+
+          status.innerText =
+            "Netzwerkfehler.";
+
+        }
+
+      });
+
+      // =========================
+      // Vorhandene Einträge laden
+      // =========================
+
+      async function loadEntries() {
+
+        const liste =
+          document.getElementById("snackListe");
 
         liste.innerHTML =
-          "<p class='text-red-500'>Fehler beim Laden.</p>";
+          "<p class='text-gray-500'>Lade...</p>";
 
+        try {
+
+          const response =
+            await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
+
+          const data =
+            await response.json();
+
+          // Neueste zuerst
+          data.reverse();
+
+          if (data.length === 0) {
+
+            liste.innerHTML =
+              "<p>Noch keine Einträge vorhanden.</p>";
+
+            return;
+          }
+
+          liste.innerHTML = "";
+
+          data.forEach(entry => {
+
+            const div =
+              document.createElement("div");
+
+            div.className =
+              "group rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-sm px-6 py-5 transition duration-300 hover:bg-white/[0.06]";
+
+            div.innerHTML = `
+  <div class="flex items-center justify-between gap-6">
+
+    <div class="min-w-0">
+
+      <p class="
+          font-heading
+          text-3xl
+          font-light
+          tracking-wide
+          text-wedding-cream
+        ">
+        ${entry.name}
+      </p>
+
+      <p class="
+          mt-1
+          text-sm
+          uppercase
+          tracking-[0.2em]
+          text-wedding-light/70
+        ">
+        ${entry.kategorie}
+      </p>
+
+    </div>
+
+    <div class="
+        text-right
+        text-wedding-light
+        font-light
+        tracking-wide
+      ">
+
+      ${entry.snack}
+
+    </div>
+
+  </div>
+`;
+
+            liste.appendChild(div);
+
+          });
+
+        } catch (error) {
+
+          liste.innerHTML =
+            "<p class='text-red-500'>Fehler beim Laden.</p>";
+
+        }
       }
-    }
 
-  </script>
+    </script>
 
 </body>
 
