@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,16 +11,18 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Montserrat:wght@200;300;400&family=Great+Vibes&display=swap"
+    rel="stylesheet">
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-  
+
           colors: {
-  
+
             wedding: {
               dark: '#4b3a32',
               paper: '#6d574c',
@@ -27,17 +30,17 @@
               cream: '#f4ede7',
               gold: '#c8a58b'
             }
-  
+
           },
-  
+
           fontFamily: {
-  
+
             heading: ['Cormorant Garamond', 'serif'],
             body: ['Montserrat', 'sans-serif'],
             signature: ['Great Vibes', 'cursive']
-  
+
           }
-  
+
         }
       }
     }
@@ -47,127 +50,104 @@
 <body class="min-h-screen bg-cover bg-center bg-fixed font-body text-wedding-cream"
   style="background-image: url('background_saile.jpg');">
 
-    <!-- Dunkles Overlay -->
+  <!-- Dunkles Overlay -->
   <div class="min-h-screen bg-black/45 backdrop-blur-[2px]">
 
     <!-- Content -->
     <div class="max-w-6xl mx-auto px-6 py-16">
-  <!-- Container -->
-  <div class="max-w-xl mx-auto px-4 py-12">
+      <!-- Container -->
+      <div class="w-full py-12">
 
-    <!-- Login Box -->
-    <div
-      id="loginBox"
-      class="bg-white rounded-3xl shadow-2xl p-8"
-    >
+        <!-- Login Box -->
+        <div id="loginBox" class="bg-white rounded-3xl shadow-2xl p-8">
 
-      <div class="text-center mb-8">
-        <h1 class="text-4xl font-bold text-gray-800">
-          Hochzeit Sailes 2026
-        </h1>
+          <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-800">
+              Hochzeit Sailes 2026
+            </h1>
 
-        <p class="text-gray-500 mt-2">
-          Bitte Passwort eingeben
-        </p>
-      </div>
+            <p class="text-gray-500 mt-2">
+              Bitte Passwort eingeben
+            </p>
+          </div>
 
-      <input
-        type="password"
-        id="passwordInput"
-        placeholder="Passwort"
-        class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-      />
+          <input type="password" id="passwordInput" placeholder="Passwort"
+            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400" />
 
-      <button
-        onclick="checkPassword()"
-        class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold p-4 rounded-xl transition"
-      >
-        Öffnen
-      </button>
+          <button onclick="checkPassword()"
+            class="w-full mt-4 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold p-4 rounded-xl transition">
+            Öffnen
+          </button>
 
-      <p
-        id="loginError"
-        class="text-red-500 text-center mt-4"
-      ></p>
-    </div>
-
-    <!-- App -->
-    <div
-      id="app"
-       class="hidden grid lg:grid-cols-2 overflow-hidden rounded-[32px]
-         border border-white/10
-         bg-[#5a463d]/70
-         backdrop-blur-xl
-         shadow-2xl"
-    >
-
-      <div class="text-center mb-8">
-        <h1 class="font-heading text-6xl font-light tracking-wide">
-          Snackliste Hochzeit Sailes
-        </h1>
-
-        <p class="mt-4 text-wedding-light tracking-[0.25em] uppercase text-sm">
-          Trage ein, welchen Salat(Buffet) oder welches Häppchen(Sektempfang) du mitbringst 🙂
-        </p>
-      </div>
-<div class="p-10 border-r border-white/10">
-      <form
-        id="snackForm"
-        class="space-y-5"
-      >
-
-        <!-- Name -->
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-700">
-            Dein Name
-          </label>
-
-          <input
-            type="text"
-            name="name"
-            required
-            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            placeholder="Max Mustermann"
-          />
+          <p id="loginError" class="text-red-500 text-center mt-4"></p>
         </div>
 
-        <!-- Kategorie -->
-        <div>
-     
-          <label class="block mb-2 text-sm font-medium text-gray-700">
-            Bringst du einen Salat für das Buffet oder ein Häppchen für den Sektempfang mit ?
-          </label>
+        <!-- App -->
+        <div id="app" class="hidden">
 
-          <select
-            name="kategorie"
-            required
-            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-          >
-            <option value="">Bitte auswählen</option>
-            <option>Salat(Buffet)</option>
-            <option>Happen(Sektempfang)</option>
-          </select>
-        </div>
+          <!-- Header -->
+          <div class="text-center mb-12">
 
-        <!-- Snack -->
-        <div>
-          <label class="block mb-2 text-sm font-medium text-gray-700">
-            Welchen Snack/Salat/Happen bringst du mit?
-          </label>
+            <h1 class="font-heading text-6xl md:text-7xl font-light tracking-wide">
+              Snackliste Hochzeit Sailes
+            </h1>
 
-          <input
-            type="text"
-            name="snack"
-            required
-            class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-            placeholder="Welchen Happen/Salat bringst du mit ?"
-          />
-        </div>
+            <p class="mt-6 text-wedding-light tracking-[0.25em] uppercase text-sm leading-7">
+              Trage ein, welchen Salat (Buffet)
+              oder welchen Happen (Sektempfang)
+              du mitbringst
+            </p>
 
-        <!-- Button -->
-        <button
-          type="submit"
-          class="w-full
+          </div>
+
+          <!-- Main Card -->
+          <div class="grid lg:grid-cols-2 overflow-hidden rounded-[32px]
+           border border-white/10
+           bg-[#5a463d]/70
+           backdrop-blur-xl
+           shadow-2xl">
+            <div class="p-10 border-r border-white/10">
+              <form id="snackForm" class="space-y-5">
+
+                <!-- Name -->
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Dein Name
+                  </label>
+
+                  <input type="text" name="name" required
+                    class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    placeholder="Max Mustermann" />
+                </div>
+
+                <!-- Kategorie -->
+                <div>
+
+                  <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Bringst du einen Salat für das Buffet oder ein Häppchen für den Sektempfang mit ?
+                  </label>
+
+                  <select name="kategorie" required
+                    class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400">
+                    <option value="">Bitte auswählen</option>
+                    <option>Salat(Buffet)</option>
+                    <option>Happen(Sektempfang)</option>
+                  </select>
+                </div>
+
+                <!-- Snack -->
+                <div>
+                  <label class="block mb-2 text-sm font-medium text-gray-700">
+                    Welchen Snack/Salat/Happen bringst du mit?
+                  </label>
+
+                  <input type="text" name="snack" required
+                    class="w-full border border-gray-300 rounded-xl p-4 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                    placeholder="Welchen Happen/Salat bringst du mit ?" />
+                </div>
+
+                <!-- Button -->
+                <button type="submit" class="w-full
                  rounded-2xl
                  bg-[#b99272]
                  hover:bg-[#c8a58b]
@@ -175,51 +155,45 @@
                  font-light
                  tracking-wide
                  py-4
-                 transition duration-300"
-        >
-          Absenden
-        </button>
+                 transition duration-300">
+                  Absenden
+                </button>
 
-      </form>
+              </form>
 
-      <!-- Status -->
-      <div
-        id="status"
-        class="text-center mt-6 text-lg"
-      ></div>
-  <div class="mt-10">
+              <!-- Status -->
+              <div id="status" class="text-center mt-6 text-lg"></div>
+              <div class="mt-10">
 
-  <p class="text-wedding-light text-sm">
-    Vielen Dank, dass ihr diesen besonderen Tag
-    mit uns feiert!
-  </p>
+                <p class="text-wedding-light text-sm">
+                  Vielen Dank, dass ihr diesen besonderen Tag
+                  mit uns feiert!
+                </p>
 
-  <p class="font-signature text-5xl mt-4 text-wedding-light">
-    Larissa & Markus
-  </p>
+                <p class="font-signature text-5xl mt-4 text-wedding-light">
+                  Larissa & Markus
+                </p>
 
-</div>
-</div>
-      <!-- Bereits eingetragene Salate -->
+              </div>
+            </div>
+            <!-- Bereits eingetragene Salate -->
 
-      <div class="p-10">
+            <div class="p-10">
 
-      <h2 class="text-2xl font-bold text-gray-800 mb-4">
-        Bereits eingetragen
-      </h2>
-    
-      <div
-        id="snackListe"
-        class="space-y-3"
-      >
-        <!-- Dynamisch eingefügt -->
+              <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                Bereits eingetragen
+              </h2>
+
+              <div id="snackListe" class="space-y-3">
+                <!-- Dynamisch eingefügt -->
+              </div>
+
+            </div>
+
+          </div>
+        </div>
       </div>
-
-</div>
-
     </div>
-  </div>
-      </div>
   </div>
 
   <script>
@@ -282,7 +256,7 @@
           .getElementById("app")
           .classList.remove("hidden");
 
-         loadEntries();
+        loadEntries();
 
       });
     }
@@ -356,48 +330,48 @@
 
     });
 
-      // =========================
-      // Vorhandene Einträge laden
-      // =========================
-      
-      async function loadEntries() {
-      
-        const liste =
-          document.getElementById("snackListe");
-      
-        liste.innerHTML =
-          "<p class='text-gray-500'>Lade...</p>";
-      
-        try {
-      
-          const response =
-            await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
-      
-          const data =
-            await response.json();
-      
-          // Neueste zuerst
-          data.reverse();
-      
-          if (data.length === 0) {
-      
-            liste.innerHTML =
-              "<p>Noch keine Einträge vorhanden.</p>";
-      
-            return;
-          }
-      
-          liste.innerHTML = "";
-      
-          data.forEach(entry => {
-      
-            const div =
-              document.createElement("div");
-      
-            div.className =
-              "bg-gray-50 border border-gray-200 rounded-xl p-4";
-      
-            div.innerHTML = `
+    // =========================
+    // Vorhandene Einträge laden
+    // =========================
+
+    async function loadEntries() {
+
+      const liste =
+        document.getElementById("snackListe");
+
+      liste.innerHTML =
+        "<p class='text-gray-500'>Lade...</p>";
+
+      try {
+
+        const response =
+          await fetch(`${scriptURL}?secret=${SECRET_KEY}`)
+
+        const data =
+          await response.json();
+
+        // Neueste zuerst
+        data.reverse();
+
+        if (data.length === 0) {
+
+          liste.innerHTML =
+            "<p>Noch keine Einträge vorhanden.</p>";
+
+          return;
+        }
+
+        liste.innerHTML = "";
+
+        data.forEach(entry => {
+
+          const div =
+            document.createElement("div");
+
+          div.className =
+            "bg-gray-50 border border-gray-200 rounded-xl p-4";
+
+          div.innerHTML = `
               <div class="flex justify-between items-center">
                 <div>
                   <p class="font-semibold text-gray-800">
@@ -414,20 +388,21 @@
                 </div>
               </div>
             `;
-      
-            liste.appendChild(div);
-      
-          });
-      
-        } catch (error) {
-      
-          liste.innerHTML =
-            "<p class='text-red-500'>Fehler beim Laden.</p>";
-      
-        }
+
+          liste.appendChild(div);
+
+        });
+
+      } catch (error) {
+
+        liste.innerHTML =
+          "<p class='text-red-500'>Fehler beim Laden.</p>";
+
       }
+    }
 
   </script>
 
 </body>
+
 </html>
