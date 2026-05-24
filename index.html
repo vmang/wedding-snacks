@@ -359,6 +359,17 @@
       });
     }
 
+    // FORM SUBMIT HANDLER
+    document
+      .getElementById("loginForm")
+      .addEventListener("submit", (e) => {
+
+        e.preventDefault();
+
+        checkPassword();
+
+      });
+
 
     // =========================
     // Formular absenden
